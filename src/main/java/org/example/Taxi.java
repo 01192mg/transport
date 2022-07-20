@@ -65,6 +65,21 @@ public class Taxi extends Transport {
         System.out.println("[ALERT] 주유 필요");
     }
 
+    @Override
+    public void changeState(String state) {
+        if (!state.equals("일반") && !state.equals("운행중") && !state.equals("운행불가")) {
+            System.out.println("[ALERT] 상태는 \"일반\", \"운행불가\", \"운행중\"으로만 변경 가능합니다.");
+            return;
+        }
+        if (state.equals("일반") || state.equals("운행중")) {
+            if (this.fuel < 10) {
+                System.out.println("[ALERT] 주유 필요");
+                return;
+            }
+        }
+        this.state = state;
+    }
+
     public void payment() {
         this.totalFare += this.fare;
         if (this.fuel < 10) {

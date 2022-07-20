@@ -47,4 +47,19 @@ public class Bus extends Transport {
         fare = 0;
         System.out.println("[ALERT] 주유 필요");
     }
+
+    @Override
+    public void changeState(String state) {
+        if (!state.equals("차고지행") && !state.equals("운행")) {
+            System.out.println("[ALERT] 상태는 \"차고지행\", \"운행\"으로만 변경 가능합니다.");
+            return;
+        }
+        if (state.equals("운행")) {
+            if (this.fuel < 10) {
+                System.out.println("[ALERT] 주유 필요");
+                return;
+            }
+        }
+        this.state = state;
+    }
 }

@@ -15,12 +15,12 @@ public class Main {
         bus.addFuel(-50);
         System.out.println("주유량 = " + bus.fuel);
 
-        bus.state = "차고지행";
+        bus.changeState("차고지행");
         bus.addFuel(10);
         System.out.println("상태 = " + bus.state);
         System.out.println("주유량 = " + bus.fuel);
 
-        bus.state = "운행중";
+        bus.changeState("운행");
         bus.take(new Passenger(45));
 
         bus.take(new Passenger(5));

@@ -25,6 +25,7 @@ class TaxiTest {
         //then
         assertNotEquals(taxi1.getNumber(), taxi2.getNumber());
     }
+
     @Test
     void takeTest() {
         //given
@@ -58,9 +59,30 @@ class TaxiTest {
         //given
         Taxi taxi = new Taxi();
         //when
-        taxi.state = "운행불가";
+        taxi.changeState("운행불가");
         //then
         assertEquals("운행불가", taxi.state);
+    }
+
+    @Test
+    void changeStateIllegalStateAlertTest() {
+        //given
+        Taxi taxi = new Taxi();
+        taxi.fuel = 0;
+        //when
+        taxi.changeState("운행중");
+        //then
+        assertEquals("[ALERT] 주유 필요\n", out.toString());
+    }
+
+    @Test
+    void changeStateIllegalArgumentAlertTest() {
+        //given
+        Taxi taxi = new Taxi();
+        //when
+        taxi.changeState("견인");
+        //then
+        assertEquals("[ALERT] 상태는 \"일반\", \"운행불가\", \"운행중\"으로만 변경 가능합니다.\n", out.toString());
     }
 
     @Test

@@ -24,6 +24,7 @@ class BusTest {
         //then
         assertNotEquals(bus1.getNumber(), bus2.getNumber());
     }
+
     @Test
     void takeTest() {
         //given
@@ -48,13 +49,34 @@ class BusTest {
     }
 
     @Test
-    void setStateTest() {
+    void changeStateTest() {
         //given
         Bus bus = new Bus();
         //when
-        bus.state = "차고지행";
+        bus.changeState("차고지행");
         //then
         assertEquals("차고지행", bus.state);
+    }
+
+    @Test
+    void changeStateIllegalStateAlertTest() {
+        //given
+        Bus bus = new Bus();
+        bus.fuel = 0;
+        //when
+        bus.changeState("운행");
+        //then
+        assertEquals("[ALERT] 주유 필요\n", out.toString());
+    }
+
+    @Test
+    void changeStateIllegalArgumentAlertTest() {
+        //given
+        Bus bus = new Bus();
+        //when
+        bus.changeState("견인");
+        //then
+        assertEquals("[ALERT] 상태는 \"차고지행\", \"운행\"으로만 변경 가능합니다.\n", out.toString());
     }
 
     @Test
@@ -72,7 +94,7 @@ class BusTest {
     void checkStatusTest() {
         //given
         Bus bus = new Bus();
-        bus.state = "차고지행";
+        bus.changeState("차고지행");
         Passenger passenger = new Passenger(1);
         //when
         bus.take(passenger);

@@ -53,4 +53,6 @@ public abstract class Transport {
     }
 
     protected abstract void stopService();
+
+    public abstract void changeState(String state);
 }
